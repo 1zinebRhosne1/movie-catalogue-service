@@ -1,14 +1,19 @@
-package models;
+package com.microservices.tp.moviecatalogueservice.models;
 
 public class CatalogItem {
     private String name;
-    private String desc;//description of the movie
+    //description of the movie
+    private String desc;
     private int rating;
 
     public CatalogItem(String name, String desc, int rating) {
         this.name = name;
         this.desc = desc;
         this.rating = rating;
+    }
+
+    public CatalogItem() {
+        
     }
 
     public String getName() {

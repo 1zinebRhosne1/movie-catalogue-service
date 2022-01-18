@@ -1,4 +1,4 @@
-package models;
+package com.microservices.tp.moviecatalogueservice.models;
 
 public class Rating {
     private String movieId;
@@ -9,6 +9,10 @@ public class Rating {
         this.rating = rating;
     }
 
+    public Rating() {
+
+    }
+    
     public String getMovieId() {
         return movieId;
     }
