@@ -1,13 +1,12 @@
 package com.microservices.tp.moviecatalogueservice.resources;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
+
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.microservices.tp.moviecatalogueservice.models.CatalogItem;
 import com.microservices.tp.moviecatalogueservice.models.Movie;
-import com.microservices.tp.moviecatalogueservice.models.Rating;
+
 import com.microservices.tp.moviecatalogueservice.models.UserRating;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +24,14 @@ public class MovieCatalogRessource {
     @RequestMapping("/{userId}")
     public List<CatalogItem>getCatalog(@PathVariable("userId") String userId) {
         
-        UserRating ratings = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/" + userId, UserRating.class);
+        UserRating ratings = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/" + userId, UserRating.class);
         /*
         List<Rating> ratings = Arrays.asList(
                 new Rating("1234", 4),
                 new Rating("1265", 4)//array of bunch of ratings
         );*/
         return ratings.getRatings().stream().map(rating -> {
-                Movie movie = restTemplate.getForObject("http://localhost:8082/movies/"+rating.getMovieId(), Movie.class);//takes two objects
+                Movie movie = restTemplate.getForObject("http://movie-info-service/movies/"+rating.getMovieId(), Movie.class);//takes two objects
                 System.out.println(movie.getMovieId());
                 return new CatalogItem(movie.getName(), "Test", rating.getRating()) ;
                 })
